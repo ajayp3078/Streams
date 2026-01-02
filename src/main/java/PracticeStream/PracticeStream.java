@@ -195,7 +195,71 @@ public class PracticeStream {
         System.out.println(count);
 
         // 36) last element of array
+        Integer last = nums.stream().skip(nums.size() - 1).findFirst().get();
+        System.out.println(last);
 
+        // 37) starts with Number
+        List<String> numsList = Arrays.asList("2aei","65yu","air6");
+        List<String> strings = numsList.stream().filter(x -> Character.isDigit(x.charAt(0))).toList();
+        System.out.println(strings);
 
+        // 38) reverse each word
+        List<String> reverse = numsList.stream().map(x -> new StringBuilder(x).reverse().toString()).toList();
+        System.out.println(reverse);
+
+        // 39) first non repeated char
+        String s = "HiHelloWorld";
+        Character firstNonRep = s.chars().mapToObj(ch -> (char) ch).collect(Collectors.groupingBy(Function.identity(), LinkedHashMap::new, Collectors.counting()))
+                .entrySet().stream().filter(x -> x.getValue() == 1).map(x -> x.getKey()).findFirst().get();
+        System.out.println(firstNonRep);
+
+        // 40) first repeated char
+        Character firstRep = s.chars().mapToObj(ch -> (char) ch).collect(Collectors.groupingBy(Function.identity(), LinkedHashMap::new, Collectors.counting()))
+                .entrySet().stream().filter(x -> x.getValue() > 1).map(x -> x.getKey()).findFirst().get();
+        System.out.println(firstRep);
+
+        // 41) print duplicates
+        List<Character> repe = s.chars().mapToObj(ch -> (char) ch).collect(Collectors.groupingBy(Function.identity(), Collectors.counting()))
+                .entrySet().stream().filter(x -> x.getValue() > 1).map(x -> x.getKey()).toList();
+        System.out.println(repe);
+
+        // 42) check Anagrams
+        String s1 = "carisrace";
+        String s2 = "arcsiarec";
+
+        String s1Mod = Arrays.stream(s1.split("")).sorted().collect(Collectors.joining());
+        String s2Mod = Arrays.stream(s2.split("")).sorted().collect(Collectors.joining());
+        if(s1Mod.equals(s2Mod)){
+            System.out.println("Is Anagram");
+        }else{
+            System.out.println("Not Anagram");
+        }
+
+        // 43) three max and three min
+        List<Integer> maximum = nums.stream().sorted(Comparator.reverseOrder()).limit(3).toList();
+        List<Integer> mininum = nums.stream().sorted().limit(3).toList();
+        System.out.println(maximum);
+        System.out.println(mininum);
+
+        // 44) merge unsorted array
+        int[] arr1 = {3,4,2,1};
+        int[] arr2 = {5,1,3,9};
+
+        List<Integer> merged = Stream.concat(Arrays.stream(arr1).boxed(), Arrays.stream(arr2).boxed())
+                .sorted().distinct().toList();
+        System.out.println(merged);
+
+        // 45) suffix and prefix
+        String collect = objects.stream().collect(Collectors.joining(",", "[", "]"));
+        System.out.println(collect);
+
+        // 46) separate odd even
+        List<List<Integer>> oddEven = nums.stream().collect(Collectors.partitioningBy(x -> x % 2 == 0)).entrySet().stream().map(Map.Entry::getValue).toList();
+        System.out.println(oddEven);
+        Map<Boolean, List<Integer>> oddEvenMap = nums.stream().collect(Collectors.partitioningBy(x -> x % 2 == 0));
+        for(Map.Entry<Boolean,List<Integer>> maps : oddEvenMap.entrySet()){
+            String key = maps.getKey()?"Even":"Odd";
+            System.out.println(key+" numbers: "+maps.getValue());
+        }
     }
 }
