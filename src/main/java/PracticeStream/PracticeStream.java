@@ -194,7 +194,8 @@ public class PracticeStream {
         System.out.println(counts);
         System.out.println(count);
 
-        // 36)
+        // 36) last element of array
+
 
     }
 }
