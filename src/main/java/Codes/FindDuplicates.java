@@ -1,16 +1,18 @@
 package Codes;
 
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
 public class FindDuplicates {
+
+    public static boolean hasCountGreaterThanOne(Map.Entry<?,Long>entry){
+        return entry.getValue()>1;
+    }
+
     public static void findDuplicatesUsingStreams(int[] arr){
         List<Integer> duplicates = Arrays.stream(arr).mapToObj(x -> (int) x).collect(Collectors.groupingBy(Function.identity(), Collectors.counting()))
-                .entrySet().stream().filter(x -> x.getValue() > 1).map(x -> x.getKey()).toList();
+                .entrySet().stream().filter(FindDuplicates::hasCountGreaterThanOne).map(Map.Entry::getKey).toList();
         System.out.println("Using streams: " + duplicates);
     }
     public static void findDuplicatesUsingHashSet(int[] arr){
