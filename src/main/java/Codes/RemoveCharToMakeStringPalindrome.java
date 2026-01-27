@@ -2,6 +2,7 @@ package Codes;
 
 public class RemoveCharToMakeStringPalindrome {
     public static void main(String[] args) {
+        // using two pointers
         String s = "lilj";
         removeSingleCharForPalindrome(s);
     }
